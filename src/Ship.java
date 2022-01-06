@@ -1,4 +1,6 @@
 import java.awt.Point;
+import java.awt.Graphics;
+import java.awt.Color;
 
 abstract public class Ship implements OnScreen
 {
@@ -12,6 +14,38 @@ abstract public class Ship implements OnScreen
     protected int bulletSpeed;
     protected Point bulletPos;
     protected GameState state;
+    protected String filename;
+    protected Bullet bullet;
+
+
+    public void draw(Graphics g) 
+    {
+        state.drawFollowMouseStatus(g);
+
+        g.setColor(Color.BLACK); 
+
+        g.drawImage(ResourceLoader.getLoader().getImage(filename), playerPos.x - 20, playerPos.y - 60, 40, 120, null);
+
+        Point bulletPos = new Point(playerPos.x, playerPos.y);
+        bullet = new Bullet(bulletPos, bulletSpeed, playerDamage, this, state);
+
+
+        int randInt = (int)(Math.random() * 100);
+        if(randInt < 49)
+        {
+            bullet.setSide("right");
+        }
+        else
+        {
+            bullet.setSide("left");
+        }
+
+        if(shootStatus)
+        {
+            state.addObject(bullet);
+        }
+    }
+
 
     public Point getPosition()
     {

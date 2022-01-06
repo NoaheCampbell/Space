@@ -16,7 +16,7 @@ public class GameControl implements Runnable, ActionListener
 
         try 
         {
-            player = new LevelOneShip(state);
+            player = new LevelOneShip(state, "LevelOneShip.png");
         } 
         catch (FileNotFoundException e) 
         {

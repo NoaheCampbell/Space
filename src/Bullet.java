@@ -8,6 +8,7 @@ public class Bullet implements OnScreen
     private int bulletDamage;
     private OnScreen parent;
     private GameState state;
+    private String side;
     
     public Bullet(Point bulletPos, int bulletSpeed, int bulletDamage, OnScreen parent, GameState state)
     {
@@ -16,10 +17,16 @@ public class Bullet implements OnScreen
         this.bulletDamage = bulletDamage;
         this.parent = parent;
         this.state = state;
+        side = "left";
     }
 
     public void update() 
     {
+        if(bulletPos.y > 800 || bulletPos.y < 0)
+        {
+            state.removeObject(this);
+        }
+
         if(parent instanceof Ship)
         {
             bulletPos.y -= bulletSpeed;
@@ -34,8 +41,16 @@ public class Bullet implements OnScreen
     {
         if(parent instanceof Ship)
         {
-            g.fillRect(bulletPos.x, bulletPos.y - 25, 10, 20);
-            state.changeShootStatus(false);
+            if(side.equals("left"))
+            {
+                g.fillRect(bulletPos.x + 10, bulletPos.y - 40, 10, 20);
+                state.changeShootStatus(false);
+            }
+            else if(side.equals("right"))
+            {
+                g.fillRect(bulletPos.x - 20, bulletPos.y - 40, 10, 20);
+                state.changeShootStatus(false);
+            }
         }
         else
         {
@@ -69,10 +84,19 @@ public class Bullet implements OnScreen
         this.bulletDamage = bulletDamage;
     }
 
-    public Point getPosition() {
+    public Point getPosition() 
+    {
         return bulletPos;
     }
 
+    public String getSide()
+    {
+        return side;
+    }
 
+    public void setSide(String side)
+    {
+        this.side = side;
+    }
     
 }

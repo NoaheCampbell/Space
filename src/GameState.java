@@ -46,7 +46,6 @@ public class GameState
         if((mouseClicked && (clickedMousePos.x < 150 && clickedMousePos.x > 10) && 
           (clickedMousePos.y > 15 && clickedMousePos.y < 55)))
         {
-            System.out.println("Clicked the box");
             followMouse = !followMouse; 
             mouseClicked = false;
         }

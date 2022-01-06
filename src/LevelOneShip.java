@@ -7,17 +7,16 @@ import java.awt.Color;
 
 public class LevelOneShip extends Ship
 {
-    
-
-    public LevelOneShip(GameState state) throws FileNotFoundException
+    public LevelOneShip(GameState state, String filename) throws FileNotFoundException
     {
         this.state = state;
-        File filename = new File("src/ShipStats.txt");
-        Scanner statsScanner = new Scanner(filename);
+        File statFile = new File("src/ShipStats.txt");
+        Scanner statsScanner = new Scanner(statFile);
         playerPos = new Point(400, 700);
         playerScore = 0;
         bulletSpeed = 20;
         bulletPos = new Point(0, 0);
+        this.filename = filename;
 
         String word = statsScanner.next();
         
@@ -48,19 +47,9 @@ public class LevelOneShip extends Ship
         statsScanner.close();
     }
 
-    public void draw(Graphics g) 
+    public void draw(Graphics g)
     {
-        state.drawFollowMouseStatus(g);
-
-        g.setColor(Color.BLACK);
-        g.fillRect(playerPos.x, playerPos.y, 50, 100);
-
-        if(shootStatus)
-        {
-            Point bulletPos = new Point(playerPos.x, playerPos.y);
-            Bullet bullet = new Bullet(bulletPos, bulletSpeed, playerDamage, this, state);
-            state.addObject(bullet);
-        }
+        super.draw(g);
     }
 
     public void update()
