@@ -71,7 +71,7 @@ public class GameView extends JPanel implements KeyListener, MouseListener, Mous
         {
             state.movePlayerDown();
         }
-        else if(keyCode == KeyEvent.VK_SPACE)
+        else if((keyCode == KeyEvent.VK_SPACE) && state.getPlayer().getPosition().x > 165 && state.getPlayer().getPosition().y > 185)
         {
             state.changeShootStatus(true);
         }
@@ -108,8 +108,8 @@ public class GameView extends JPanel implements KeyListener, MouseListener, Mous
         state.setClickedMousePos(mousePos);
         state.setMouseClicked(true);
 
-        if(!(state.getMouseClicked() && (state.getClickedMousePos().x < 150 && state.getClickedMousePos().x > 10) && 
-          (state.getClickedMousePos().y > 15 && state.getClickedMousePos().y < 55)))
+        
+        if(state.getCurrentMousePos().x > 165 && state.getCurrentMousePos().y > 185)
         {
             state.changeShootStatus(true);
         }

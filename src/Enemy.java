@@ -24,16 +24,6 @@ abstract public class Enemy implements OnScreen
 
     public void update()
     {
-  //      enemyPos.x += enemySpeed;
-        if(enemyPos.x > 800 - (enemyWidth / 2))
-        {
-            // enemySpeed = -enemySpeed;
-        }
-        else if(enemyPos.x < 0 + (enemyWidth / 2))
-        {
-          //  enemySpeed = -enemySpeed;
-        }
-
         enemyPos.y += enemySpeed;
         if(enemyPos.y > 800 - (enemyHeight / 2))
         {
@@ -67,15 +57,23 @@ abstract public class Enemy implements OnScreen
            state.getPlayer().getPosition().y > enemyPos.y - (enemyHeight / 2) && 
            state.getPlayer().getPosition().y < enemyPos.y + (enemyHeight / 2))
         {
-            state.getPlayer().changeHealth(state.getPlayer().getHealth() - enemyDamage);
-            state.removeObject(this);
+            if(state.playerHasShield())
+            {
+                state.getPlayer().changeShields(-enemyDamage);
+            }
+            else
+            {
+                state.getPlayer().changeHealth(-enemyDamage);
+                state.removeObject(this);
+                state.removeEnemy(this);
+            }
         }
 
         //If the enemy is at 0 health, remove it from the screen
         if(enemyHealth <= 0)
         {
             state.removeEnemy(this);
-            state.removeEnemyPos(this.getPosition());
+            state.changePlayerScore(1);            
             state.removeObject(this);
         }
     }

@@ -3,10 +3,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class LevelOneEnemy extends Enemy
+public class EnemyLvLOne extends Enemy
 {
 
-    public LevelOneEnemy(GameState state, Point enemyPos, int enemyWidth, int enemyHeight, String filename)
+    public EnemyLvLOne(GameState state, Point enemyPos, int enemyWidth, int enemyHeight, String filename)
     {
         this.state = state;
         this.enemyPos = enemyPos;

@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.awt.Graphics;
-import java.awt.Color;
 import java.awt.Point;
 
 public class GameState 
@@ -11,17 +10,14 @@ public class GameState
     private ArrayList<Enemy> enemies;
     private ArrayList<Enemy> enemiesToAdd;
     private ArrayList<Enemy> enemiesToRemove;
-    private ArrayList<Point> enemyPos;
-    private ArrayList<Point> enemyPosToAdd;
-    private ArrayList<Point> enemyPosToRemove;
-    private LevelOneShip player;
-    private LevelOneEnemy enemy;
+    private ShipLvLOne player;
+    private EnemyLvLOne enemy;
     private Boolean mouseClicked;
     private Boolean followMouse;
     private Point clickedMousePos;
     private Point currentMousePos;
 
-    public GameState(LevelOneShip player, LevelOneEnemy enemy)
+    public GameState(ShipLvLOne player, EnemyLvLOne enemy)
     {
         gameObjects = new ArrayList<OnScreen>();
         objectsToAdd = new ArrayList<OnScreen>();
@@ -29,9 +25,6 @@ public class GameState
         enemies = new ArrayList<Enemy>();
         enemiesToAdd = new ArrayList<Enemy>();
         enemiesToRemove = new ArrayList<Enemy>();
-        enemyPos = new ArrayList<Point>();
-        enemyPosToAdd = new ArrayList<Point>();
-        enemyPosToRemove = new ArrayList<Point>();
         this.player = player;
         this.enemy = enemy;
         mouseClicked = false;
@@ -61,11 +54,14 @@ public class GameState
 
         if(randInt < 49)
         {
-            setEnemy(new LevelOneEnemy(this, new Point((int)(Math.random() * 800), 0), enemy.getWidth(),
-            enemy.getHeight(), "LevelOneEnemy.png"));
-            addEnemy(enemy);
-            addObject(enemy);
-            addEnemyPos(enemy.getPosition());
+            int randomXCoord = (int)(Math.random() * 800);
+            if(randomXCoord > 185)
+            {
+                setEnemy(new EnemyLvLOne(this, new Point(randomXCoord, 0), enemy.getWidth(),
+                enemy.getHeight(), "LevelOneEnemy.png"));
+                addEnemy(enemy);
+                addObject(enemy);
+            }
         }
         
         if((mouseClicked && (clickedMousePos.x < 150 && clickedMousePos.x > 10) && 
@@ -97,7 +93,7 @@ public class GameState
         }
     }
 
-    public void addPlayer(LevelOneShip player)
+    public void addPlayer(ShipLvLOne player)
     {
         this.player = player;
     }
@@ -142,7 +138,7 @@ public class GameState
         player.changeShootStatus(newStatus);
     }
 
-    public void setPlayer(LevelOneShip player)
+    public void setPlayer(ShipLvLOne player)
     {
         this.player = player;
     }
@@ -167,11 +163,9 @@ public class GameState
         return followMouse;
     }
 
-    public void drawFollowMouseStatus(Graphics g)
+    public Boolean playerHasShield()
     {
-        g.fillRect(10, 15, 140, 40);
-        g.setColor(Color.WHITE);
-        g.drawString("Follow Mouse: " + followMouse, 20, 35);
+       return player.getShields() > 0;
     }
 
     public void setClickedMousePos(Point mousePos)
@@ -194,12 +188,12 @@ public class GameState
         return currentMousePos;
     }
 
-    public LevelOneEnemy getEnemy()
+    public EnemyLvLOne getEnemy()
     {
         return enemy;
     }
 
-    public void setEnemy(LevelOneEnemy enemy)
+    public void setEnemy(EnemyLvLOne enemy)
     {
         this.enemy = enemy;
     }
@@ -218,19 +212,4 @@ public class GameState
     {
         return enemies;
     }
-
-    public ArrayList<Point> getEnemyPos()
-    {
-        return enemyPos;
-    }
-
-    public void addEnemyPos(Point enemyPos)
-    {
-        enemyPosToAdd.add(enemyPos);
-    }
-
-    public void removeEnemyPos(Point enemyPos)
-    {
-        enemyPosToRemove.add(enemyPos);
-    }
-}
+ }

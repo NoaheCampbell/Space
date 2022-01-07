@@ -31,7 +31,6 @@ abstract public class Ship implements OnScreen
 
     public void draw(Graphics g) 
     {
-        state.drawFollowMouseStatus(g);
 
         g.setColor(Color.BLACK); 
 

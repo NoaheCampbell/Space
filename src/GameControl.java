@@ -8,8 +8,8 @@ public class GameControl implements Runnable, ActionListener
 {
     private GameState state;
     private GameView view;
-    private LevelOneShip player;
-    private LevelOneEnemy enemy;
+    private ShipLvLOne player;
+    private EnemyLvLOne enemy;
 
     public void run() 
     {
@@ -20,9 +20,8 @@ public class GameControl implements Runnable, ActionListener
 
         try 
         {
-            player = new LevelOneShip(state, "LevelOneShip.png", 50, 50);
-            enemy = new LevelOneEnemy(state, new Point(randomXCoord, 0), 50, 50, "LevelOneEnemy.png");
-            state.addEnemyPos(enemy.getPosition());
+            player = new ShipLvLOne(state, "LevelOneShip.png", 50, 50);
+            enemy = new EnemyLvLOne(state, new Point(randomXCoord, 0), 50, 50, "LevelOneEnemy.png");
         } 
         catch (FileNotFoundException e) 
         {
@@ -33,6 +32,7 @@ public class GameControl implements Runnable, ActionListener
         state.setEnemy(enemy);
         state.addEnemy(enemy);
 
+        state.addObject(new MenuPlayerStatus(state));
         state.addObject(player);
         state.addObject(enemy);
 

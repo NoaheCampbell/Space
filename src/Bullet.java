@@ -47,8 +47,16 @@ public class Bullet implements OnScreen
             if((bulletPos.x >= (player.getPosition().x - player.getWidth() / 2) && bulletPos.y >= (player.getPosition().y - player.getHeight() / 2)) &&
                 bulletPos.x <= (player.getPosition().x + player.getWidth() / 2) && bulletPos.y <= (player.getPosition().y + player.getHeight() / 2))
             {
-                player.changeHealth(-bulletDamage);
-                state.removeObject(this);
+                if(state.playerHasShield())
+                {
+                    state.getPlayer().changeShields(-bulletDamage);
+                    state.removeObject(this);
+                }
+                else
+                {
+                    state.getPlayer().changeHealth(-bulletDamage);
+                    state.removeObject(this);
+                }
             }
         }
         // Checks to see if the bullet is colliding with the enemy

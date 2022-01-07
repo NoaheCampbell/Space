@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.awt.Graphics;
 
-public class LevelOneShip extends Ship
+public class ShipLvLOne extends Ship
 {
-    public LevelOneShip(GameState state, String filename, int width, int height) throws FileNotFoundException
+    public ShipLvLOne(GameState state, String filename, int width, int height) throws FileNotFoundException
     {
         this.state = state;
         File statFile = new File("src/ShipStats.txt");
@@ -58,12 +58,11 @@ public class LevelOneShip extends Ship
         super.update();
         if(state.getFollowMouse())
         {
-            if(!((state.getCurrentMousePos().x < 150 && state.getCurrentMousePos().x > 10) && 
-                (state.getCurrentMousePos().y > 15 && state.getCurrentMousePos().y < 55)))
-                {
+            if(!(state.getCurrentMousePos().x < 165 && state.getCurrentMousePos().y < 185))
+            {
                     playerPos.x = state.getCurrentMousePos().x;
                     playerPos.y = state.getCurrentMousePos().y;
-                }
+            }
         }
     }
 
