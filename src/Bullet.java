@@ -12,6 +12,8 @@ public class Bullet implements OnScreen
     private GameState state;
     private String side;
     private ArrayList<Enemy> enemies;
+    private int width;
+    private int height;
     
     public Bullet(Point bulletPos, int bulletDamage, OnScreen parent, GameState state)
     {
@@ -22,6 +24,8 @@ public class Bullet implements OnScreen
         side = "left";
         this.parent = parent;
         player = state.getPlayer();
+        width = 10;
+        height = 20;
     }
 
     public void update() 
@@ -66,8 +70,16 @@ public class Bullet implements OnScreen
             {
                 if(isCollision(enemies.get(i).getPosition(), enemies.get(i).getWidth(), enemies.get(i).getHeight()))
                 {
-                    enemies.get(i).changeHealth(-bulletDamage);
-                    state.removeObject(this);
+                    if(enemies.get(i).getShields() >= 0)
+                    {
+                        enemies.get(i).changeShields(-bulletDamage);
+                        state.removeObject(this);
+                    }
+                    else
+                    {
+                        enemies.get(i).changeHealth(-bulletDamage);
+                        state.removeObject(this);
+                    }
                 }
             }
         }
@@ -80,26 +92,26 @@ public class Bullet implements OnScreen
         {
             if(side.equals("left"))
             {
-                g.fillRect(bulletPos.x + 10, bulletPos.y - 40, 10, 20);
+                g.fillRect(bulletPos.x + 10, bulletPos.y - 40, width, height);
                 state.changeShootStatus(false);
             }
             else if(side.equals("right"))
             {
-                g.fillRect(bulletPos.x - 20, bulletPos.y - 40, 10, 20);
+                g.fillRect(bulletPos.x - 20, bulletPos.y - 40, width, height);
                 state.changeShootStatus(false);
             }
         }
         else
         {
-            g.fillRect(bulletPos.x, bulletPos.y + 25, 10, 20);
+            g.fillRect(bulletPos.x, bulletPos.y + 25, width, height);
             state.changeShootStatus(false);
         }
     }
 
     public Boolean isCollision(Point point, int width, int height)
     {
-        if(point.x >= (bulletPos.x - width / 2) && point.y >= (bulletPos.y - height / 2) &&
-            point.x <= (bulletPos.x + width / 2) && point.y <= (bulletPos.y + height / 2))
+        if(point.x >= ((bulletPos.x - this.width / 2) - width / 2) && point.y >= ((bulletPos.y - this.height / 2) - height / 2) &&
+            point.x <= ((bulletPos.x + this.width / 2) + width / 2) && point.y <= ((bulletPos.y + this.height / 2) + height / 2))
         {
             return true;
         }
@@ -151,12 +163,12 @@ public class Bullet implements OnScreen
 
     public int getWidth()
     {
-        return 0;
+        return width;
     }
 
     public int getHeight() 
     {
-        return 0;
+        return height;
     }
 
     public void changeHealth(int bulletDamage) 

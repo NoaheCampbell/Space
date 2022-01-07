@@ -1,5 +1,6 @@
 One:
-    Health: 2
-    Shields: 1
+    Health: 1
+    Shields: 3
     Damage: 1
-    Speed: 2
+    SpeedY: 2
+    SpeedX: 1

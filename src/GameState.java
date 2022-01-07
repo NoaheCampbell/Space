@@ -16,6 +16,7 @@ public class GameState
     private Boolean followMouse;
     private Point clickedMousePos;
     private Point currentMousePos;
+    private double timeElapsed;
 
     public GameState(ShipLvLOne player, EnemyLvLOne enemy)
     {
@@ -31,6 +32,7 @@ public class GameState
         followMouse = false;
         clickedMousePos = new Point(0, 0);
         currentMousePos = new Point(0, 0);
+        timeElapsed = 0;
     }
 
     public void addObject(OnScreen object)
@@ -52,13 +54,18 @@ public class GameState
 
         int randInt = (int)(Math.random() * 5000);
 
-        if(randInt < 49)
+        if(randInt < 50)
         {
             int randomXCoord = (int)(Math.random() * 800);
             if(randomXCoord > 190 && randomXCoord < 770)
             {
                 setEnemy(new EnemyLvLOne(this, new Point(randomXCoord, 0), enemy.getWidth(),
                 enemy.getHeight(), "LevelOneEnemy.png"));
+                randInt = (int)(Math.random() * 100);
+                if(randInt < 49)
+                {
+                    enemy.changeSpeedX(-enemy.getSpeedX());
+                }
                 addEnemy(enemy);
                 addObject(enemy);
             }
@@ -83,6 +90,7 @@ public class GameState
         enemies.removeAll(enemiesToRemove);
         enemiesToRemove.clear();
 
+        timeElapsed += 0.017;
     }
 
     public void drawAll(Graphics g)
@@ -211,5 +219,15 @@ public class GameState
     public ArrayList<Enemy> getEnemies()
     {
         return enemies;
+    }
+
+    public double getTimeElapsed()
+    {
+        return timeElapsed;
+    }
+
+    public Boolean enemyHasShields()
+    {
+        return enemy.getShields() > 0;
     }
  }

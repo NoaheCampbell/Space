@@ -45,9 +45,13 @@ public class EnemyLvLOne extends Enemy
                 {
                     enemyDamage = statsScanner.nextInt();
                 }
-                else if(word.equals("Speed:"))
+                else if(word.equals("SpeedY:"))
                 {
-                    enemySpeed = statsScanner.nextInt();
+                    enemySpeedY = statsScanner.nextInt();
+                }
+                else if(word.equals("SpeedX:"))
+                {
+                    enemySpeedX = statsScanner.nextInt();
                 }
 
             }
