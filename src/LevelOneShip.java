@@ -3,11 +3,10 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.awt.Graphics;
-import java.awt.Color;
 
 public class LevelOneShip extends Ship
 {
-    public LevelOneShip(GameState state, String filename) throws FileNotFoundException
+    public LevelOneShip(GameState state, String filename, int width, int height) throws FileNotFoundException
     {
         this.state = state;
         File statFile = new File("src/ShipStats.txt");
@@ -17,6 +16,8 @@ public class LevelOneShip extends Ship
         bulletSpeed = 20;
         bulletPos = new Point(0, 0);
         this.filename = filename;
+        this.width = width;
+        this.height = height;
 
         String word = statsScanner.next();
         
@@ -54,6 +55,7 @@ public class LevelOneShip extends Ship
 
     public void update()
     {
+        super.update();
         if(state.getFollowMouse())
         {
             if(!((state.getCurrentMousePos().x < 150 && state.getCurrentMousePos().x > 10) && 
@@ -63,6 +65,16 @@ public class LevelOneShip extends Ship
                     playerPos.y = state.getCurrentMousePos().y;
                 }
         }
+    }
+
+    public int getWidth() 
+    {
+        return width;
+    }
+
+    public int getHeight() 
+    {
+        return height;
     }
 
 }

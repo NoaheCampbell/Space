@@ -16,7 +16,18 @@ abstract public class Ship implements OnScreen
     protected GameState state;
     protected String filename;
     protected Bullet bullet;
+    protected int width;
+    protected int height;
 
+
+    public void update()
+    {
+        // If the player's health is less than or equal to 0, remove the player from the game
+        if(playerHealth <= 0)
+        {
+            state.removeObject(this);
+        }
+    }
 
     public void draw(Graphics g) 
     {
@@ -24,10 +35,11 @@ abstract public class Ship implements OnScreen
 
         g.setColor(Color.BLACK); 
 
-        g.drawImage(ResourceLoader.getLoader().getImage(filename), playerPos.x - 20, playerPos.y - 60, 40, 120, null);
+        g.drawImage(ResourceLoader.getLoader().getImage(filename), playerPos.x - (width / 2), playerPos.y - (height / 2), 
+                    width, height, null);
 
         Point bulletPos = new Point(playerPos.x, playerPos.y);
-        bullet = new Bullet(bulletPos, bulletSpeed, playerDamage, this, state);
+        bullet = new Bullet(bulletPos, playerDamage, this, state);
 
 
         int randInt = (int)(Math.random() * 100);
