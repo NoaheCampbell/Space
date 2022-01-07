@@ -55,7 +55,7 @@ public class GameState
         if(randInt < 49)
         {
             int randomXCoord = (int)(Math.random() * 800);
-            if(randomXCoord > 185)
+            if(randomXCoord > 190 && randomXCoord < 770)
             {
                 setEnemy(new EnemyLvLOne(this, new Point(randomXCoord, 0), enemy.getWidth(),
                 enemy.getHeight(), "LevelOneEnemy.png"));
