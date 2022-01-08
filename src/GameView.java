@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -43,6 +44,8 @@ public class GameView extends JPanel implements KeyListener, MouseListener, Mous
 
     public void paint(Graphics g)
     {
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, 800, 800);
         state.drawAll(g);
     }
 
