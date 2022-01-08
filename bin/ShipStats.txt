@@ -1,5 +1,0 @@
-One:
-    Health: 5
-    Shields: 3
-    Damage: 1
-    Speed: 10
