@@ -54,7 +54,7 @@ public class GameState
 
         int randInt = (int)(Math.random() * 5000);
 
-        if(randInt < 50)
+        if(randInt < 60)
         {
             int randomXCoord = (int)(Math.random() * 800);
             if(randomXCoord > 190 && randomXCoord < 770)
