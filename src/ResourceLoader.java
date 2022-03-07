@@ -52,7 +52,5 @@ public class ResourceLoader
             System.exit(0); 
             return null; 
         }    
-    	
-       
     }
 }

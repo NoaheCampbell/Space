@@ -265,10 +265,9 @@ public class GameState
         removeObject(menuGameOver);
         addObject(player);
         setPlayer(player);
-        enemies.addAll(enemiesToRemove);
-        removeAllEnemies();
         enemy.resetEnemySpeed();
         enemy.setShields(3);
+        timeElapsed = 0;
     }
     
     public Boolean getGameOver()
@@ -282,8 +281,13 @@ public class GameState
         {
             if(object instanceof Enemy)
             {
-                removeObject(object);
+                objectsToRemove.add(object);
             }
         }
+    }
+
+    public int getPlayerScore()
+    {
+        return player.getScore();
     }
  }

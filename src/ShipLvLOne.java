@@ -56,6 +56,7 @@ public class ShipLvLOne extends Ship
     public void update()
     {
         super.update();
+        
         if(state.getFollowMouse())
         {
             if(!(state.getCurrentMousePos().x < 165 && state.getCurrentMousePos().y < 185))

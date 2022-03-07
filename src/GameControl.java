@@ -17,7 +17,6 @@ public class GameControl implements Runnable, ActionListener
         state = new GameState(player, enemy);
         view = new GameView(state);
         background = new ParallaxBackground("ParallaxBackground.png");
-
         int randomXCoord = (int)(Math.random() * 800);
 
         try 

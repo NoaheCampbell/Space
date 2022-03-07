@@ -92,7 +92,11 @@ abstract public class Enemy implements OnScreen
         if(enemyHealth <= 0)
         {
             state.removeEnemy(this);
-            state.changePlayerScore(1);            
+            state.changePlayerScore(1); 
+            if(state.getPlayerScore() % 10 == 0)
+            {
+                state.getPlayer().changeShields(1);
+            }        
             state.removeObject(this);
         }
     }

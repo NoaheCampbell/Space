@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.awt.Color;
 
 public class MenuGameOver extends Menu
@@ -30,10 +31,15 @@ public class MenuGameOver extends Menu
     public void update() 
     {
 
-
         if(state.getGameOver() && (state.getMouseClicked() && state.getClickedMousePos().x >= 385 && state.getClickedMousePos().x <= 485 &&
            state.getClickedMousePos().y >= 383 && state.getClickedMousePos().y <= 433))
         {
+            ArrayList<Enemy> enemies = state.getEnemies();
+            for(int i = 0; i < enemies.size(); i++)
+            {
+                state.removeObject(enemies.get(i));
+                state.removeEnemy(enemies.get(i));
+            }
             state.restartGame();
         }
     }
