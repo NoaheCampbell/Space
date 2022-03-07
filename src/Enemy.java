@@ -12,8 +12,8 @@ abstract public class Enemy implements OnScreen
     protected int enemyDamage;
     protected int enemySpeedY;
     protected int enemySpeedX;
-    public int enemyWidth;
-    public int enemyHeight;
+    protected int enemyWidth;
+    protected int enemyHeight;
     protected boolean shootStatus;
     protected int bulletSpeed;
     protected Point bulletPos;
@@ -25,77 +25,39 @@ abstract public class Enemy implements OnScreen
 
     public void update()
     {
-        if(state.getTimeElapsed() >= 10 && state.getTimeElapsed() <= 10.05)
+        if(state.getTimeElapsed() % 10000 == 0 && state.getTimeElapsed() >= 10000)
         {
-            enemyShields = 6;
-        } 
-        else if(state.getTimeElapsed() >= 20 && state.getTimeElapsed() <= 20.05)
-        {
-            enemyShields = 8;
-        } 
-        else if(state.getTimeElapsed() >= 30 && state.getTimeElapsed() <= 30.05)
-        {
-            enemyShields = 10;
-        } 
-        else if(state.getTimeElapsed() >= 40 && state.getTimeElapsed() <= 40.05)
-        {
-            enemyShields = 12;
-        } 
-        else if(state.getTimeElapsed() >= 50 && state.getTimeElapsed() <= 50.05)
-        {
-            enemyShields = 14;
-        } 
-        else if(state.getTimeElapsed() >= 60 && state.getTimeElapsed() <= 60.05)
-        {
-            enemyShields = 16;
-        } 
-        else if(state.getTimeElapsed() >= 70 && state.getTimeElapsed() <= 70.05)
-        {
-            enemyShields = 18;
-        } 
-        else if(state.getTimeElapsed() >= 80 && state.getTimeElapsed() <= 80.05)
-        {
-            enemyShields = 20;
-        } 
-        else if(state.getTimeElapsed() >= 90 && state.getTimeElapsed() <= 90.05)
-        {
-            enemyShields = 22;
-        } 
-        else if(state.getTimeElapsed() >= 100 && state.getTimeElapsed() <= 100.05)
-        {
-            enemyShields = 24;
-        } 
-        else if(state.getTimeElapsed() >= 110 && state.getTimeElapsed() <= 110.05)
-        {
-            enemyShields = 26;
-        } 
-
-        enemyPos.x += enemySpeedX;
-        if(enemyPos.x >= 800 - getWidth() / 2)
-        {
-            enemySpeedX = -enemySpeedX;
+            this.changeSpeedY(1);
+            this.changeShields(1);
         }
-        else if(enemyPos.x <= 0 + getWidth() / 2)
+        if(!state.getGameOver())
         {
-            enemySpeedX = -enemySpeedX;
-        }
+            enemyPos.x += enemySpeedX;
+            if(enemyPos.x >= 800 - getWidth() / 2)
+            {
+                enemySpeedX = -enemySpeedX;
+            }
+            else if(enemyPos.x <= 0 + getWidth() / 2)
+            {
+                enemySpeedX = -enemySpeedX;
+            }
 
+            enemyPos.y += enemySpeedY;
+            if(enemyPos.y > 800 - (enemyHeight / 2))
+            {
+                state.removeObject(this);
+            }
 
-        enemyPos.y += enemySpeedY;
-        if(enemyPos.y > 800 - (enemyHeight / 2))
-        {
-            state.removeObject(this);
-        }
+            int randomShootChance = (int)(Math.random() * 5000);
 
-        int randomShootChance = (int)(Math.random() * 5000);
-
-        if(randomShootChance < 50)
-        {
-            shootStatus = true;
-        }
-        else
-        {
-            shootStatus = false;
+            if(randomShootChance < 50)
+            {
+                shootStatus = true;
+            }
+            else
+            {
+                shootStatus = false;
+            }
         }
 
         if(shootStatus)
@@ -221,6 +183,16 @@ abstract public class Enemy implements OnScreen
         enemySpeedY += speedY;
     }
 
+    public void setSpeedY(int speedY)
+    {
+        enemySpeedY = speedY;
+    }
+
+    public void setSpeedX(int speedX)
+    {
+        enemySpeedX = speedX;
+    }
+
     public int getSpeedX()
     {
         return enemySpeedX;
@@ -229,5 +201,16 @@ abstract public class Enemy implements OnScreen
     public int getSpeedY()
     {
         return enemySpeedY;
+    }
+
+    public void resetEnemySpeed()
+    {
+        enemySpeedX = 1;
+        enemySpeedY = 2;
+    }
+
+    public void preventEnemyShooting()
+    {
+        shootStatus = false;
     }
 }

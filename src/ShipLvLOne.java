@@ -76,4 +76,9 @@ public class ShipLvLOne extends Ship
         return height;
     }
 
+    public void setShields(int shields) 
+    {
+        playerShields = shields;
+    }
+
 }

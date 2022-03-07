@@ -10,11 +10,13 @@ public class GameControl implements Runnable, ActionListener
     private GameView view;
     private ShipLvLOne player;
     private EnemyLvLOne enemy;
+    private ParallaxBackground background;
 
     public void run() 
     {
         state = new GameState(player, enemy);
         view = new GameView(state);
+        background = new ParallaxBackground("ParallaxBackground.png");
 
         int randomXCoord = (int)(Math.random() * 800);
 
@@ -32,6 +34,7 @@ public class GameControl implements Runnable, ActionListener
         state.setEnemy(enemy);
         state.addEnemy(enemy);
 
+        state.addObject(background);
         state.addObject(new MenuPlayerStatus(state));
         state.addObject(player);
         state.addObject(enemy);

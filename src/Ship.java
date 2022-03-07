@@ -25,6 +25,7 @@ abstract public class Ship implements OnScreen
         // If the player's health is less than or equal to 0, remove the player from the game
         if(playerHealth <= 0)
         {
+            state.setGameOver(true);
             state.removeObject(this);
         }
     }
@@ -103,6 +104,11 @@ abstract public class Ship implements OnScreen
         playerScore += score;
     }
 
+    public void setScore(int score)
+    {
+        playerScore = score;
+    }
+
     public void changeDamage(int damage)
     {
         playerDamage += damage;
@@ -136,5 +142,20 @@ abstract public class Ship implements OnScreen
     public void changeShootStatus(boolean newStatus)
     {
         shootStatus = newStatus;
+    }
+
+    public void setPlayerSpeed(int newSpeed)
+    {
+        playerSpeed = newSpeed;
+    }
+
+    public void resetPlayerSpeed()
+    {
+        playerSpeed = 10;
+    }
+
+    public void preventPlayerShooting()
+    {
+        shootStatus = false;
     }
 }

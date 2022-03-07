@@ -92,18 +92,18 @@ public class Bullet implements OnScreen
         {
             if(side.equals("left"))
             {
-                g.fillRect(bulletPos.x + 10, bulletPos.y - 40, width, height);
+                g.drawImage(ResourceLoader.getLoader().getImage("EnemyLaser.png"), bulletPos.x + 10, bulletPos.y - 40, 15, 30, null);
                 state.changeShootStatus(false);
             }
             else if(side.equals("right"))
             {
-                g.fillRect(bulletPos.x - 20, bulletPos.y - 40, width, height);
+                g.drawImage(ResourceLoader.getLoader().getImage("EnemyLaser.png"), bulletPos.x - 20, bulletPos.y - 40, 15, 30, null);
                 state.changeShootStatus(false);
             }
         }
         else
         {
-            g.fillRect(bulletPos.x, bulletPos.y + 25, width, height);
+                g.drawImage(ResourceLoader.getLoader().getImage("EnemyLaser.png"), bulletPos.x, bulletPos.y + 25, 15, 30, null);
             state.changeShootStatus(false);
         }
     }

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.FileNotFoundException;
 
 public class GameState 
 {
@@ -17,6 +18,8 @@ public class GameState
     private Point clickedMousePos;
     private Point currentMousePos;
     private double timeElapsed;
+    private Boolean gameOver;
+    private MenuGameOver menuGameOver;
 
     public GameState(ShipLvLOne player, EnemyLvLOne enemy)
     {
@@ -33,6 +36,8 @@ public class GameState
         clickedMousePos = new Point(0, 0);
         currentMousePos = new Point(0, 0);
         timeElapsed = 0;
+        gameOver = false;
+        menuGameOver = new MenuGameOver(this);
     }
 
     public void addObject(OnScreen object)
@@ -52,22 +57,25 @@ public class GameState
             object.update();
         }
 
-        int randInt = (int)(Math.random() * 5000);
-
-        if(randInt < 60)
+        if(!gameOver)
         {
-            int randomXCoord = (int)(Math.random() * 800);
-            if(randomXCoord > 190 && randomXCoord < 770)
+            int randInt = (int)(Math.random() * 5000);
+
+            if(randInt < 60)
             {
-                setEnemy(new EnemyLvLOne(this, new Point(randomXCoord, 0), enemy.getWidth(),
-                enemy.getHeight(), "LevelOneEnemy.png"));
-                randInt = (int)(Math.random() * 100);
-                if(randInt < 49)
+                int randomXCoord = (int)(Math.random() * 800);
+                if(randomXCoord > 190 && randomXCoord < 770)
                 {
-                    enemy.changeSpeedX(-enemy.getSpeedX());
+                    setEnemy(new EnemyLvLOne(this, new Point(randomXCoord, 0), enemy.getWidth(),
+                    enemy.getHeight(), "LevelOneEnemy.png"));
+                    randInt = (int)(Math.random() * 100);
+                    if(randInt < 49)
+                    {
+                        enemy.changeSpeedX(-enemy.getSpeedX());
+                    }
+                    addEnemy(enemy);
+                    addObject(enemy);
                 }
-                addEnemy(enemy);
-                addObject(enemy);
             }
         }
         
@@ -229,5 +237,53 @@ public class GameState
     public Boolean enemyHasShields()
     {
         return enemy.getShields() > 0;
+    }
+
+    public void setGameOver(Boolean gameOver)
+    {
+        this.gameOver = gameOver;
+        if(gameOver)
+        {
+            player.setPlayerSpeed(0);
+            enemy.setSpeedX(0);
+            enemy.setSpeedY(0);
+            addObject(menuGameOver);
+        }
+    }
+
+    public void restartGame()
+    {
+        gameOver = false;
+        try 
+        {
+            player = new ShipLvLOne(this, "LevelOneShip.png", 50, 50);
+        } catch (FileNotFoundException e) 
+        {
+            e.printStackTrace();
+        }
+
+        removeObject(menuGameOver);
+        addObject(player);
+        setPlayer(player);
+        enemies.addAll(enemiesToRemove);
+        removeAllEnemies();
+        enemy.resetEnemySpeed();
+        enemy.setShields(3);
+    }
+    
+    public Boolean getGameOver()
+    {
+        return gameOver;
+    }
+
+    public void removeAllEnemies()
+    {
+        for(OnScreen object : gameObjects)
+        {
+            if(object instanceof Enemy)
+            {
+                removeObject(object);
+            }
+        }
     }
  }

@@ -64,4 +64,9 @@ public class EnemyLvLOne extends Enemy
         super.update();
     }
 
+    public void setShields(int shields) 
+    {
+        enemyShields = shields;
+    }
+
 }
