@@ -59,7 +59,7 @@ public class ShipLvLOne extends Ship
         
         if(state.getFollowMouse())
         {
-            if(!(state.getCurrentMousePos().x < 165 && state.getCurrentMousePos().y < 185))
+            if(!(state.getCurrentMousePos().x < 165 && state.getCurrentMousePos().y < 215))
             {
                     playerPos.x = state.getCurrentMousePos().x;
                     playerPos.y = state.getCurrentMousePos().y;

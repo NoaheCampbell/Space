@@ -37,6 +37,9 @@ abstract public class Ship implements OnScreen
 
         g.drawImage(ResourceLoader.getLoader().getImage(filename), playerPos.x - (width / 2), playerPos.y - (height / 2), 
                     width, height, null);
+        g.drawImage(ResourceLoader.getLoader().getImage("PlayerThrusters.png"), playerPos.x - (width / 2), playerPos.y + (height / 2), 
+                    50, 20, null);
+        
 
         Point bulletPos = new Point(playerPos.x, playerPos.y);
         bullet = new Bullet(bulletPos, playerDamage, this, state);

@@ -106,7 +106,9 @@ abstract public class Enemy implements OnScreen
         g.setColor(Color.BLACK);
 
         g.drawImage(ResourceLoader.getLoader().getImage(filename), enemyPos.x - enemyWidth / 2, 
-                    enemyPos.y - enemyHeight / 2, enemyWidth, enemyHeight, null);
+                    enemyPos.y - enemyHeight / 2, enemyWidth, enemyHeight, null);   
+        g.drawImage(ResourceLoader.getLoader().getImage("EnemyThrusters.png"), enemyPos.x - 18,
+                    enemyPos.y - 43, 40, 20, null);
 
         Point bulletPos = new Point(enemyPos.x, enemyPos.y);
         bullet = new Bullet(bulletPos, enemyDamage, this, state);
