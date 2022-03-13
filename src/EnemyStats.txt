@@ -4,3 +4,9 @@ One:
     Damage: 1
     SpeedY: 2
     SpeedX: 1
+
+Two:
+    Health: 5
+    Shields: 7
+    Damage: 2
+    SpeedY: 1

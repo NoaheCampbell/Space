@@ -92,7 +92,12 @@ abstract public class Enemy implements OnScreen
         if(enemyHealth <= 0)
         {
             state.removeEnemy(this);
-            state.changePlayerScore(1); 
+
+            if(this instanceof EnemyLvLOne)
+                state.changePlayerScore(1); 
+            else if(this instanceof EnemyLvLTwo)
+                state.changePlayerScore(5);
+                
             if(state.getPlayerScore() % 10 == 0)
             {
                 state.getPlayer().changeShields(1);
@@ -107,8 +112,13 @@ abstract public class Enemy implements OnScreen
 
         g.drawImage(ResourceLoader.getLoader().getImage(filename), enemyPos.x - enemyWidth / 2, 
                     enemyPos.y - enemyHeight / 2, enemyWidth, enemyHeight, null);   
-        g.drawImage(ResourceLoader.getLoader().getImage("EnemyThrusters.png"), enemyPos.x - 18,
-                    enemyPos.y - 43, 40, 20, null);
+
+        if(this instanceof EnemyLvLOne)
+            g.drawImage(ResourceLoader.getLoader().getImage("EnemyThrusters.png"), enemyPos.x - 18,
+                        enemyPos.y - 43, 40, 20, null);
+        else if(this instanceof EnemyLvLTwo)
+            g.drawImage(ResourceLoader.getLoader().getImage("EnemyLvL2Thrusters.png"), enemyPos.x - 18,
+                        enemyPos.y - 43, 40, 20, null);
 
         Point bulletPos = new Point(enemyPos.x, enemyPos.y);
         bullet = new Bullet(bulletPos, enemyDamage, this, state);

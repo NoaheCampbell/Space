@@ -20,6 +20,7 @@ public class GameState
     private double timeElapsed;
     private Boolean gameOver;
     private MenuGameOver menuGameOver;
+    private int enemyCount;
 
     public GameState(ShipLvLOne player, EnemyLvLOne enemy)
     {
@@ -38,6 +39,7 @@ public class GameState
         timeElapsed = 0;
         gameOver = false;
         menuGameOver = new MenuGameOver(this);
+        enemyCount = 0;
     }
 
     public void addObject(OnScreen object)
@@ -60,6 +62,13 @@ public class GameState
         if(!gameOver)
         {
             int randInt = (int)(Math.random() * 5000);
+
+            if((int)timeElapsed % 60 == 0 && timeElapsed > 1 && enemyCount < 4)
+            {
+                int randomXCoord = (int)(Math.random() * 800);
+                addObject(new EnemyLvLTwo(this, new Point(randomXCoord, 0), 60, 100, "EnemyLvlTwo.png"));
+                enemyCount++;
+            }
 
             if(randInt < 60)
             {

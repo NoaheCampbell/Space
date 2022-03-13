@@ -30,7 +30,7 @@ public class EnemyLvLOne extends Enemy
 
         if(word.equals("One:"))
         {
-            while(statsScanner.hasNext())
+            while(!word.equals("Two:"))
             {
                 word = statsScanner.next();
                 if(word.equals("Health:"))
